@@ -279,6 +279,6 @@ We hope that have shown you how to use the new `mi impute from` with some exampl
 ## Related material :bookmark:
 :label: The underlying imputation method and a simulation study are described in: [Thiesmeier, R., Bottai, M., & Orsini, N. (2024). Systematically missing data in distributed data networks: multiple imputation when data cannot be pooled. Journal of Statistical Computation and Simulation, 1–19](https://doi.org/10.1080/00949655.2024.2404220)
 
-:label: The first version of the `mi impute from` was presented at the [2024 UK Stata Conference in London](https://www.stata.com/meeting/uk24/slides/UK24_Orsini.pdf)
+:label: The first version of `mi impute from` was presented at the [2024 UK Stata Conference in London](https://www.stata.com/meeting/uk24/slides/UK24_Orsini.pdf)
 
 :warning: If you find any error please notfiy us: robert.thiesmeier@ki.se
