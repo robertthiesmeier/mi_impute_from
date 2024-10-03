@@ -13,7 +13,7 @@ ssc install mi_impute_from
 In this preprint (add link), we describe the underlying method and present the syntax of `mi impute from` alongside practical examples of missing data in collaborative research projects. The examples in the paper can be reproduced with the materials on this site. To do so, please dowload the data sets for each example and exceute  the code (.do) to reproduce the statistics and figure presented.
 
 # Examples :bulb:
-We present three examples on how to use `mi impute from` wot continious, discrete, and binary missing data. Please refer to the paper for a detailed description of the examples. 
+We present three examples on how to use `mi impute from` wot continious, discrete, and binary missing data. Please refer to the paper for a detailed description of the examples. Download the data sets for the following examples [here](datasets/datasets.zip)
 
 ## Example 1: Missing confounder
 
