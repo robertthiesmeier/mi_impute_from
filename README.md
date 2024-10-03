@@ -6,4 +6,9 @@ The first version of the new Stata command `mi impute from` can be downloaded fr
 
 `ssc install mi_impute_from`
 
-The documentation of the command is avaialble as a preprint on here.
+The documentation of the command is avaialble as a preprint on here (add link).
+
+## Examples
+The examples in the paper can be reproduced. Dowload the data sets for each example and then exceute the code to reproduce the statistics and figure presneted in the paper.
+
+If you find any error please notfiy us: robert.thiesmeier@ki.se
