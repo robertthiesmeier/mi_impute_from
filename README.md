@@ -50,6 +50,7 @@ Step 2: Back to the study with missing data and make informtion read to use with
 ```
 use study_1, clear
 replace z = . // Z is set to missing
+save study_1, replace
 
 mi set wide
 mi register imputed z
@@ -60,6 +61,57 @@ mi impute from z , add(10) b(ib) v(iV) imodel(qreg) rseed(24092024)
 ```
                       
 We can use `mi estimate` to fit the outcome model in each imputed data set and combine the estimates with Rubin's rules.
+
+```
+mi estimate, post eform noheader : logit y x c z
+```
+
+### Extension to multiple studies
+Let us use multiple studies to fit the imputation model.
+
+```
+forv k = 2/5 {
+	use study_`k', replace
+	forv i = 1/99 {
+		qui qreg z y x c, q(`i')
+		mat b = e(b)
+		mat V = e(V)
+		if colsof(b) == e(rank) {
+			matrix coleq  b = "q`i'"
+			if `i' == 1 {
+				mat ib = b
+				mat iV = V 
+			}
+			else {
+				mat ib = ib , b
+				mata: iV = blockdiag(st_matrix("iV"), st_matrix("V"))
+				mata: st_matrix("iV", iV)
+			}
+		}				
+	}	
+	svmat ib 
+	qui export delimited ib* using b_study`k'.txt in 1 , replace 
+	svmat iV 
+	qui export delimited iV* using v_study`k'.txt if iV1 != . , replace 
+}
+```
+
+Use `mi_impute_from_get` to import matrices from all studies and take a weighted average. 
+
+```ruby
+use study_1, clear 
+mi set wide
+mi register imputed z
+mi_impute_from_get , ///
+	b(b_study2 b_study3 b_study4 b_study5) ///
+	v(v_study2 v_study3 v_study4 v_study5) ///
+	colnames(y x c _cons) imodel(qreg) 
+mat ib = r(get_ib)
+mat iV = r(get_iV)
+mi impute from z , add(10) b(ib) v(iV) imodel(qreg) rseed(24092024)
+```
+
+Again, we can use `mi estimate` to fit the outcome model in each imputed data set and combine the estimates with Rubin's rules.
 
 ```
 mi estimate, post eform noheader : logit y x c z
