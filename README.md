@@ -3,10 +3,12 @@
 ## Content 
 Missing data is a common challenge across scientific disciplines. Current imputation methods require the availability of individual data to impute missing values. Often, however, missingness requires using external data for the imputation. Therefore, we introduce a new Stata command, `mi impute from`, designed to impute missing values using linear predictors and their related covariance matrix from imputation models estimated in one or multiple external studies. This allows for the imputation of any missing values without sharing individual data between studies. 
 
-## Dowload `mi impute from` 
+## Dowload `mi impute from` :computer:
 This site contains the materials to the paper "Imputing Missing Values with External Data". The first version of the new Stata command `mi impute from` can be downloaded from the SSC Archive in Stata:
 
-`ssc install mi_impute_from`
+```ruby
+ssc install mi_impute_from
+```
 
 In this preprint (add link), we describe the underlying method and present the syntax of `mi impute from` alongside practical examples of missing data in collaborative research projects. The examples in the paper can be reproduced with the materials on this site. To do so, please dowload the data sets for each example and exceute  the code (.do) to reproduce the statistics and figure presented.
 
@@ -68,7 +70,7 @@ mi estimate, post eform noheader : logit y x c z
 ```
 
 ### Extension to multiple studies 
-Let us use multiple studies to fit the imputation model.
+Let us use multiple studies to fit the imputation model. 
 
 ```ruby
 forv k = 2/5 {
@@ -97,7 +99,7 @@ forv k = 2/5 {
 }
 ```
 
-Use `mi_impute_from_get` to import matrices from all studies and take a weighted average. 
+Use `mi_impute_from_get` to import matrices from all studies :inbox_tray: and take a weighted average. 
 
 ```ruby
 use study_1, clear 
@@ -132,7 +134,7 @@ svmat iV
 qui export delimited iV* using v_study2.txt if iV1 != . , replace 
 ```
 
-Back to Study 1 where we can import the files and perform the imputations and fit the imputation model in all imputed data sets.
+Back to Study 1 where we can import the files :inbox_tray: and perform the imputations and fit the imputation model in all imputed data sets.
 
 ```ruby
 quietly use study_1, clear 
@@ -164,24 +166,24 @@ To estimate the parameters of the the effect of the treatment at the low, medium
 
 ```ruby
 mi predictnl est_bxz0 = _b[x] using miestfile, se(est_se_bxz0)
-di %2.1f exp(est_bxz0)
-di %2.1f exp(est_bxz0 + 1.96*est_se_bxz0)
-di %2.1f exp(est_bxz0 - 1.96*est_se_bxz0)
+	di %2.1f exp(est_bxz0)
+	di %2.1f exp(est_bxz0 + 1.96*est_se_bxz0)
+	di %2.1f exp(est_bxz0 - 1.96*est_se_bxz0)
 
 mi predictnl est_bxz1 = _b[x] + _b[x_zi1] using miestfile, se(est_se_bxz1)
-di %2.1f exp(est_bxz1)
-di %2.1f exp(est_bxz1 + 1.96*est_se_bxz1)
-di %2.1f exp(est_bxz1 - 1.96*est_se_bxz1)
+	di %2.1f exp(est_bxz1)
+	di %2.1f exp(est_bxz1 + 1.96*est_se_bxz1)
+	di %2.1f exp(est_bxz1 - 1.96*est_se_bxz1)
 
 mi predictnl est_bxz2 = _b[x] + _b[x_zi2] using miestfile, se(est_se_bxz2)
-di %2.1f exp(est_bxz2)
-di %2.1f exp(est_bxz2 + 1.96*est_se_bxz2)
-di %2.1f exp(est_bxz2 - 1.96*est_se_bxz2)
+	di %2.1f exp(est_bxz2)
+	di %2.1f exp(est_bxz2 + 1.96*est_se_bxz2)
+	di %2.1f exp(est_bxz2 - 1.96*est_se_bxz2)
 ```
 
 ## Example 3: Missing Predictor
-The last example illustartes the use of `mi impute from` for the use prediction models.
-Again, we fit the imputation model in an external study with some informtion on the missing variable of interest. 
+The last example illustrates the use of `mi impute from` for the use prediction models.
+Again, we fit the imputation model in an external study with some information on the missing variable of interest. 
 
 ```ruby
 qui use study_2, clear
@@ -194,7 +196,7 @@ svmat iV
 qui export delimited iV* using v_study2.txt if iV1 != . , replace 
 ```
 
-In the study with missing data on the predictor of interest, import files and perform imputations. 
+In the study with missing data on the predictor of interest, import files :inbox_tray: and perform imputations. 
 
 ```ruby
 quietly use study_1, clear 
@@ -270,9 +272,10 @@ hist area_val, ///
 
 ![figure1](https://github.com/user-attachments/assets/db204789-e365-47a4-8483-57c72b4c1253)
 
+We hope that have shown you how to use the new `mi impute from` with some examples. :sparkles:
 
 ## Related material :bookmark:
 The underlying imputation method and a simulation study are described in: Thiesmeier, R., Bottai, M., & Orsini, N. (2024). Systematically missing data in distributed data networks: multiple imputation when data cannot be pooled. Journal of Statistical Computation and Simulation, 1–19. https://doi.org/10.1080/00949655.2024.2404220
 
 
-If you find any error please notfiy us: robert.thiesmeier@ki.se
+:warning: If you find any error please notfiy us: robert.thiesmeier@ki.se
