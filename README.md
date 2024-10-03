@@ -3,21 +3,22 @@
 ## Content 
 Missing data is a common challenge across scientific disciplines. Current imputation methods require the availability of individual data to impute missing values. Often, however, missingness requires using external data for the imputation. Therefore, we introduce a new Stata command, `mi impute from`, designed to impute missing values using linear predictors and their related covariance matrix from imputation models estimated in one or multiple external studies. This allows for the imputation of any missing values without sharing individual data between studies. 
 
-## Dowload `mi impute from` :computer:
+## Download `mi impute from` :computer:
 This site contains the materials to the paper "Imputing Missing Values with External Data". The first version of the new Stata command `mi impute from` can be downloaded from the SSC Archive in Stata:
 
 ```ruby
 ssc install mi_impute_from
 ```
 
-In this preprint (add link), we describe the underlying method and present the syntax of `mi impute from` alongside practical examples of missing data in collaborative research projects. The examples in the paper can be reproduced with the materials on this site. To do so, please dowload the data sets for each example and exceute  the code (.do) to reproduce the statistics and figure presented.
+In this preprint (add link), we describe the underlying method and present the syntax of `mi impute from` alongside practical examples of missing data in collaborative research projects. The examples in the paper can be reproduced with the materials on this site. To do so, please download the data sets for each example and execute the code (.do) to reproduce the statistics and figure presented.
 
 # Examples :bulb:
-We present three examples on how to use `mi impute from` wot continious, discrete, and binary missing data. Please refer to the paper for a detailed description of the examples. Download the data sets for the following examples [here](datasets/datasets.zip)
+We present three examples on how to use `mi impute from` with continuous, discrete, and binary missing data. Please refer to the paper for a detailed description of the examples. Download the data sets for the following examples [here](datasets/datasets.zip).
 
 ## Example 1: Missing confounder
 
 Step 1: Fit the imputation in the study with data on the confounder
+
 ```ruby
 // Step 1: Fit imputation model in Study 2
 use study_2, replace
@@ -40,7 +41,7 @@ forv i = 1/99 {
 }
 ```
 
-:outbox_tray: Export the regression coefficients and covariance matrix to a txt file.
+:outbox_tray: Export the regression coefficients and covariance matrix into a txt file.
 
 ```ruby
 svmat ib 
