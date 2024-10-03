@@ -1,8 +1,7 @@
 /*
-Supporting files to the mnauscript "Imputing missing values with external data"
+Supporting files to "Imputing missing values with external data"
 Thiesmeier R, Bottai M, Orsini N
 Example 1: Missing Confounder
-
 */
 
 clear all
