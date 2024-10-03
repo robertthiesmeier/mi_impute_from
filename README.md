@@ -1,16 +1,17 @@
 # Imputation Missing Values using External Data
 
-## Content
+## Content 
 Missing data is a common challenge across scientific disciplines. Current imputation methods require the availability of individual data to impute missing values. Often, however, missingness requires using external data for the imputation. Therefore, we introduce a new Stata command, `mi impute from`, designed to impute missing values using linear predictors and their related covariance matrix from imputation models estimated in one or multiple external studies. This allows for the imputation of any missing values without sharing individual data between studies. 
 
-## Dowload `mi impute from`
+## Dowload `mi impute from` 
 This site contains the materials to the paper "Imputing Missing Values with External Data". The first version of the new Stata command `mi impute from` can be downloaded from the SSC Archive in Stata:
 
 `ssc install mi_impute_from`
 
 In this preprint (add link), we describe the underlying method and present the syntax of `mi impute from` alongside practical examples of missing data in collaborative research projects. The examples in the paper can be reproduced with the materials on this site. To do so, please dowload the data sets for each example and exceute  the code (.do) to reproduce the statistics and figure presented.
 
-### Example 1: Missing confounder
+# Examples :bulb:
+## Example 1: Missing confounder
 Please refer to the paper for a detailed description of the examples. 
 
 Step 1: Fit the imputation in the study with data on the confounder
@@ -45,7 +46,7 @@ svmat iV
 qui export delimited iV* using v_study2.txt if iV1 != . , replace 
 ```
 
-Step 2: Back to the study with missing data and make informtion read to use with `mi_impute_from_get`. 
+:inbox_tray: Step 2: Back to the study with missing data and make informtion read to use with `mi_impute_from_get`. 
 
 ```ruby
 use study_1, clear
@@ -66,7 +67,7 @@ We can use `mi estimate` to fit the outcome model in each imputed data set and c
 mi estimate, post eform noheader : logit y x c z
 ```
 
-### Extension to multiple studies
+### Extension to multiple studies 
 Let us use multiple studies to fit the imputation model.
 
 ```ruby
@@ -133,7 +134,7 @@ qui export delimited iV* using v_study2.txt if iV1 != . , replace
 
 Back to Study 1 where we can import the files and perform the imputations and fit the imputation model in all imputed data sets.
 
-```
+```ruby
 quietly use study_1, clear 
 mi set wide
 qui mi stset time, fail(death)
@@ -160,6 +161,7 @@ mi estimate , post eform noheader saving(miestfile, replace):  ///
 ```
 
 To estimate the parameters of the the effect of the treatment at the low, medium, and high level of the EM: 
+
 ```ruby
 mi predictnl est_bxz0 = _b[x] using miestfile, se(est_se_bxz0)
 di %2.1f exp(est_bxz0)
@@ -194,7 +196,7 @@ qui export delimited iV* using v_study2.txt if iV1 != . , replace
 
 In the study with missing data on the predictor of interest, import files and perform imputations. 
 
-```
+```ruby
 quietly use study_1, clear 
 mi set wide
 mi register imputed z
@@ -224,7 +226,7 @@ forv k = 1/`M'{
 di "AUC over imputed data (average) = " %4.3f (`area'/`M')
 ```
 
-### Reproduce the figure
+### Reproduce the figure :bar_chart:
 The figure in the paper can be reproduced by simply adding 1000 imputations in the previous step: 
 
 ```ruby
@@ -266,7 +268,10 @@ hist area_val, ///
 	ylab(, nogrid labsize(small)) name(figure_example3, replace) aspect(1)
 ```
 
-## Related material
+![figure1](https://github.com/user-attachments/assets/db204789-e365-47a4-8483-57c72b4c1253)
+
+
+## Related material :bookmark:
 The underlying imputation method and a simulation study are described in: Thiesmeier, R., Bottai, M., & Orsini, N. (2024). Systematically missing data in distributed data networks: multiple imputation when data cannot be pooled. Journal of Statistical Computation and Simulation, 1–19. https://doi.org/10.1080/00949655.2024.2404220
 
 
